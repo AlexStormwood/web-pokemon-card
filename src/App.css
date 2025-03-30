@@ -12,6 +12,11 @@
     display: flex;
     flex-wrap: wrap;
     gap: 2%;
+    
+  }
+
+  .cardRendererContainer > * {
+    margin-bottom: 20px;
   }
   
 }

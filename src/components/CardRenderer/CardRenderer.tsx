@@ -18,13 +18,20 @@ export default function CardRenderer({cardScale}: {cardScale: string}) {
 
 
 	useEffect(() => {
-		if (refContainer.current) {
+		if (!refContainer.current) return; 
+		
+		
+		const resizeObserver = new ResizeObserver(() => {
 			setDimensions({
-				width: refContainer.current.offsetWidth,
-				height: refContainer.current.offsetHeight
-			})
-		}
-	}, [])
+				width: refContainer.current!.offsetWidth,
+				height: refContainer.current!.offsetHeight
+			});
+		});
+
+		resizeObserver.observe(refContainer.current);
+		return () => resizeObserver.disconnect();
+
+	}, []);
 
 	let [x, setX] = useState("0");
 	let [y, setY] = useState("0");
