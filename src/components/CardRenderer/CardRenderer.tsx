@@ -30,12 +30,15 @@ export default function CardRenderer({cardScale}: {cardScale: string}) {
 	let [y, setY] = useState("0");
 
 	const rotateToMouse = (event: React.MouseEvent) => {
-		const baseX = event.clientX;
-		const baseY = event.clientY;
+		let bounds = event.currentTarget.getBoundingClientRect();
+		const baseX = event.clientX - bounds.left;
+		const baseY = event.clientY - bounds.top;
 		const middleX = dimensions.width / 2;
 		const middleY = dimensions.height / 2;
 		const offsetX = ((baseX - middleX) / middleX) * 45;
 		const offsetY = ((baseY - middleY) / middleY) * 45;
+
+		// console.log(baseX, baseY, middleX, middleY, offsetX, offsetY);
 
 		setX( -1 * offsetY + "deg");
 		setY(offsetX + "deg");
@@ -77,7 +80,7 @@ export default function CardRenderer({cardScale}: {cardScale: string}) {
 					</svg>
 				</div>
 			</div>
-			<div className="debugHelpers">
+			<div className="debugHelpers" style={{height: `${cardScale}dvh`}}>
 				<img src={testingImage} />
 			</div>
 		</section>
