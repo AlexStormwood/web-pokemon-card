@@ -1,6 +1,9 @@
 :root {
 	--pocket-default: #dedfdf;
 	--pocket-text: #221814;
+
+	--active-card-rotateY: 0;
+	--active-card-rotateX: 0;
 }
 
 @font-face {
@@ -12,6 +15,9 @@
 
 .cardRenderer {
 	position: relative;
+	transform-style: preserve-3d;
+	transition: 0.5s;
+	transform: perspective(1000px) rotateY(var(--active-card-rotateY)) rotateX(var(--active-card-rotateX));
 
 	overflow: hidden;
 	
