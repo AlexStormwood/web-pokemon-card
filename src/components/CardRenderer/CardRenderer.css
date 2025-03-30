@@ -22,7 +22,7 @@
 	overflow: hidden;
 	
 	aspect-ratio: 750 / 1050;
-	height: 70dvh;
+	height: 50dvh;
 	font-family: Gill Sans,Gill Sans MT;
 	font-style: bold;
 	color: var(--pocket-text);
@@ -103,7 +103,7 @@
 		position: relative;
 		z-index: -10;
 		/* width: 45dvh; */
-		height: 70dvh;
+		height: 50dvh;
 		opacity: 0.3;
 	}
 }

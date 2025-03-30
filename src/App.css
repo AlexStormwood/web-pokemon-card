@@ -7,6 +7,16 @@
   text-align: center;
 }
 
+.appContainer {
+  .cardRendererContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2%;
+  }
+  
+}
+
+
 .logo {
   height: 6em;
   padding: 1.5em;

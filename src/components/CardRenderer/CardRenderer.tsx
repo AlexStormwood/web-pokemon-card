@@ -8,7 +8,7 @@ export const themes = {
 	pocket: {},
 };
 
-export default function CardRenderer() {
+export default function CardRenderer({cardScale}: {cardScale: string}) {
 
 	const refContainer = useRef<HTMLElement>(null);
 	const [dimensions, setDimensions] = useState({
@@ -58,6 +58,7 @@ export default function CardRenderer() {
 			style={{
 				'--active-card-rotateY': y,
 				'--active-card-rotateX': x,
+				height:`${cardScale}dvh`
 			} as React.CSSProperties}
 		>
 			<div className="cardContent">
