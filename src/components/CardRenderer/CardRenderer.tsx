@@ -11,8 +11,8 @@ export const themes = {
 export default function CardRenderer({cardScale}: {cardScale: string}) {
 
 	let [borderThickness, setBorderThickness] = useState(1);
-	let [borderColourHex, setBorderColourHex] = useState("#dedfdf");
-	let [cornerRoundness, setCornerRoundness] = useState(1);
+	let [borderColourHex] = useState("#dedfdf");
+	let [cornerRoundness] = useState(1);
 
 
 	const refContainer = useRef<HTMLElement>(null);
