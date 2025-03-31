@@ -1,0 +1,36 @@
+{
+	"name": "tatsugiri",
+	"illustrator": "Tomowaka",
+	"types": [
+		"basic"
+	],
+	"resourceTypes": [
+		"W"
+	],
+	"rarity": "UC",
+	"resource1": "70",
+	"resource2": "C",
+	"actions": [
+		{
+			"isAbility": true,
+			"name":"Retreat Directive",
+			"cost":"",
+			"output":"",
+			"modifier":"",
+			"description":"Your Active Dondozo has no Retreat Cost."
+		},
+		{
+			"isAbility": false,
+			"name":"Rain Splash",
+			"cost":"W",
+			"output":"20",
+			"modifier":"",
+			"description":""
+		}
+	],
+	"weakness": {
+		"energyType": "L",
+		"modifier": "+20"
+	},
+	"flavourText": "This is a small dragon Pokémon. It lives inside the mouth of Dondozo to protect itself from enemies on the outside."
+}

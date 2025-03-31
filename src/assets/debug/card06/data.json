@@ -1,0 +1,36 @@
+{
+	"name": "charizard",
+	"illustrator": "PLANETA Igarashi",
+	"types": [
+		"stage 2",
+		"ex"
+	],
+	"resourceTypes": [
+		"R"
+	],
+	"rarity": "DR",
+	"resource1": "180",
+	"resource2": "CCC",
+	"actions": [
+		{
+			"isAbility": false,
+			"name":"Stoke",
+			"cost":"R",
+			"output":"",
+			"modifier":"",
+			"description":"Take 3 R Energy from your Energy Zone and attach it to this Pokémon."
+		},
+		{
+			"isAbility": false,
+			"name":"Steam Artillery",
+			"cost":"RRRCC",
+			"output":"150",
+			"modifier":"",
+			"description":""
+		}
+	],
+	"weakness": {
+		"energyType": "W",
+		"modifier": "+20"
+	}
+}

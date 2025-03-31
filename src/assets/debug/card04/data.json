@@ -1,0 +1,36 @@
+{
+	"name": "pawmot",
+	"illustrator": "Saboteri",
+	"types": [
+		"stage 2"
+	],
+	"resourceTypes": [
+		"L"
+	],
+	"rarity": "R",
+	"resource1": "140",
+	"resource2": "",
+	"actions": [
+		{
+			"isAbility": true,
+			"name":"Counterattack",
+			"cost":"",
+			"output":"",
+			"modifier":"",
+			"description":"If this Pokémon is in the Active Spot and is damaged by an attack from your opponent's Pokémon, do 20 damage to the Attacking Pokémon."
+		},
+		{
+			"isAbility": false,
+			"name":"Electric Punch",
+			"cost":"LL",
+			"output":"70",
+			"modifier":"",
+			"description":""
+		}
+	],
+	"weakness": {
+		"energyType": "F",
+		"modifier": "+20"
+	},
+	"flavourText": "This Pokémon normally is slow to react, but once it enters battle, it will strike down its enemies with lightning-fast movements."
+}

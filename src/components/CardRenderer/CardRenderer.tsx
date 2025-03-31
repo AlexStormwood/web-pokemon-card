@@ -1,9 +1,10 @@
 import ActionRenderer from "../ActionRenderer/ActionRenderer";
-import { ActionRendererProps } from "../ActionRenderer/ActionRenderer.types";
 import "./CardRenderer.css";
 
 
 import { useEffect, useRef, useState } from "react";
+import { CardData } from "./CardRenderer.types";
+import { capitalizeFirstLetter } from "../../utils/capitaliseFirstletter";
 
 export const themes = {
 	pocket: {},
@@ -13,7 +14,7 @@ export default function CardRenderer({cardScale, cardId}: {cardScale: string, ca
 
 	let [cardArt, setCardArt] = useState<{ default: string }>();
 	let [cardDebug, setCardDebug] = useState<{ default: string }>();
-	let [cardActions, setCardActions] = useState<ActionRendererProps[]>();
+	let [cardData, setCardData] = useState<CardData>();
 
 	let [borderThickness, setBorderThickness] = useState(1);
 	let [borderColourHex] = useState("#dedfdf");
@@ -39,9 +40,9 @@ export default function CardRenderer({cardScale, cardId}: {cardScale: string, ca
 			const targetCardDebug = await import(`../../assets/debug/${cardId}/card.png`);
 			setCardDebug(targetCardDebug);
 
-			const targetCardActions = await import(`../../assets/debug/${cardId}/actions.json`);
-			// console.log(targetCardActions.default);
-			setCardActions(targetCardActions.default);
+			const targetCardData = await import(`../../assets/debug/${cardId}/data.json`);
+			// console.log(targetCardData.default);
+			setCardData(targetCardData.default);
 		}
 
 		importAssets();
@@ -127,21 +128,89 @@ export default function CardRenderer({cardScale, cardId}: {cardScale: string, ca
 					marginLeft: `${(borderThickness / 2)}px`,
 					height: `${dimensions.height / 16.5}px`,
 					zIndex: `10`,
-					backgroundColor: "rgba(254, 167, 255, 0.43)"
+					backgroundColor: "rgba(254, 167, 255, 0.5)",
+					display: "flex",
+					flexDirection: "row",
+					justifyContent: "space-between"
 				}}>
-					<p className="cardName" style={{
-						position: "absolute",
-						textAlign: "left",
-						lineHeight: `100%`,
-						fontSize: `${dimensions.height / 3}%`,
-						fontWeight: `900`,
-						margin: `0`,
-						marginTop: `0.6%`,
-						marginLeft: `15%`,
-						letterSpacing: `-${dimensions.width / 4000}rem`
+					<div className="cardTypeOneContainer">
+						<p className="cardTypeOne" style={{
+							position: "relative",
+							textAlign: "left",
+							lineHeight: `100%`,
+							fontSize: `${dimensions.height / 35}px`,
+							fontWeight: `500`,
+							margin: `0`,
+							marginTop: `20%`,
+							letterSpacing: `-${dimensions.width / 3750}rem`
+						}}>
+							{cardData?.types[0].toLocaleUpperCase()}
+						</p>
+						
+					</div>
+
+					<div className="cardNameContainer" style={{
+						display: "flex"
 					}}>
-						Bidoof
-					</p>
+						<p className="cardName" style={{
+							position: "relative",
+							textAlign: "left",
+							lineHeight: `100%`,
+							fontSize: `${dimensions.height / 19}px`,
+							fontWeight: `900`,
+							margin: `0`,
+							letterSpacing: `-${dimensions.width / 3750}rem`
+						}}>
+							{cardData?.name ? capitalizeFirstLetter(cardData.name) : "Loading..."}
+						</p>
+						{cardData?.types.length && cardData?.types[1] && 
+						<div className="cardTypeTwoContainer">
+							<p className="cardTypeTwo" style={{
+								position: "relative",
+								textAlign: "left",
+								lineHeight: `100%`,
+								fontSize: `${dimensions.height / 35}px`,
+								fontWeight: `500`,
+								margin: `0`,
+								marginTop: `2.5%`,
+								letterSpacing: `-${dimensions.width / 3750}rem`
+							}}>
+								{cardData?.types[1].toLocaleUpperCase()}
+							</p>
+							
+						</div>}
+					</div>
+
+					<div className="cardResourceOneContainer" style={{
+						display: "flex"
+					}}>
+						<p>HP</p>
+						<p className="cardResourceOne" style={{
+							position: "relative",
+							textAlign: "left",
+							lineHeight: `100%`,
+							fontSize: `${dimensions.height / 35}px`,
+							fontWeight: `500`,
+							margin: `0`,
+							marginTop: `20%`,
+							letterSpacing: `-${dimensions.width / 3750}rem`
+						}}>
+							{cardData?.resource1.toLocaleUpperCase()}
+						</p>
+						<p className="cardResourceType" style={{
+							position: "relative",
+							textAlign: "left",
+							lineHeight: `100%`,
+							fontSize: `${dimensions.height / 19}px`,
+							fontWeight: `900`,
+							margin: `0`,
+							letterSpacing: `-${dimensions.width / 3750}rem`,
+							paddingRight: `${(borderThickness / 4)}px`
+						}}>
+							{cardData?.resourceTypes[0]}
+						</p>
+					</div>
+					
 				</div>
 
 
@@ -149,7 +218,7 @@ export default function CardRenderer({cardScale, cardId}: {cardScale: string, ca
 
 				<div className="cardArtbox" style={{
 					position: "relative",
-					backgroundColor: "rgba(243, 245, 39, 0.43)",
+					backgroundColor: "rgba(243, 245, 39, 0.5)",
 					width: `${dimensions.width - (borderThickness)}px`,
 					marginLeft: `${(borderThickness / 2)}px`,
 					height: `${dimensions.height / 2.4}px`,
@@ -169,16 +238,16 @@ export default function CardRenderer({cardScale, cardId}: {cardScale: string, ca
 
 				<div className="cardActions" style={{
 					position: "relative",
-					backgroundColor: "rgba(167, 236, 255, 0.43)",
+					backgroundColor: "rgba(167, 236, 255, 0.5)",
 					width: `${dimensions.width - (borderThickness)}px`,
 					marginLeft: `${(borderThickness / 2)}px`,
 					height: `${dimensions.height / 2.95}px`,
 					display: "flex",
 					gap:`${dimensions.height / 25}px`,
-					justifyContent: cardActions?.some((actionObj) => actionObj.isAbility) ? "start" : "center",
+					justifyContent: cardData?.actions.some((actionObj) => actionObj.isAbility) ? "start" : "center",
 					flexDirection: "column"
 				}}>
-					{cardActions?.map((actionObj, index) => {
+					{cardData?.actions.map((actionObj, index) => {
 						return <ActionRenderer 
 							key={actionObj.name + index}
 							isAbility={actionObj.isAbility} 
@@ -188,7 +257,7 @@ export default function CardRenderer({cardScale, cardId}: {cardScale: string, ca
 							name={actionObj.name}
 							output={actionObj.output}
 							dimensions={dimensions}
-							extraOffset={cardActions.some((actionObj) => actionObj.cost.length >= 5) ? true : false}
+							extraOffset={cardData?.actions.some((actionObj) => actionObj.cost.length >= 5) ? true : false}
 						/>
 					})}
 
@@ -196,7 +265,7 @@ export default function CardRenderer({cardScale, cardId}: {cardScale: string, ca
 
 				<div className="cardInfo" style={{
 					position: "relative",
-					backgroundColor: "rgba(255, 119, 25, 0.43)",
+					backgroundColor: "rgba(255, 121, 25, 0.5)",
 					width: `${dimensions.width - (borderThickness)}px`,
 					marginLeft: `${(borderThickness / 2)}px`,
 					marginBottom: `${(borderThickness / 2)}px`,

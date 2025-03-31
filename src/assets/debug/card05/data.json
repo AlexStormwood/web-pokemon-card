@@ -1,0 +1,28 @@
+{
+	"name": "beedrill",
+	"illustrator": "PLANETA Igarashi",
+	"types": [
+		"stage 2",
+		"ex"
+	],
+	"resourceTypes": [
+		"G"
+	],
+	"rarity": "DR",
+	"resource1": "170",
+	"resource2": "C",
+	"actions": [
+		{
+			"isAbility": false,
+			"name":"Crushing Spear",
+			"cost":"GG",
+			"output":"80",
+			"modifier":"",
+			"description":"Discard a random Energy from your opponent's Active Pokémon."
+		}
+	],
+	"weakness": {
+		"energyType": "R",
+		"modifier": "+20"
+	}
+}

@@ -1,5 +1,4 @@
 import { ActionRendererProps } from "./ActionRenderer.types";
-import "./ActionRenderer.css";
 
 export default function ActionRenderer({
 	isAbility,
@@ -54,7 +53,7 @@ export default function ActionRenderer({
 						fontSize: `${dimensions.height / 25}px`,
 						fontWeight: `600`,
 						textAlign: "left",
-
+						paddingLeft: "2.5%"
 					}}>
 						{cost}
 					</div>

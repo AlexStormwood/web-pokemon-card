@@ -1,0 +1,28 @@
+{
+	"name": "machamp",
+	"illustrator": "Kouki Saitou",
+	"types": [
+		"stage 2"
+	],
+	"resourceTypes": [
+		"F"
+	],
+	"rarity": "R",
+	"resource1": "150",
+	"resource2": "CC",
+	"actions": [
+		{
+			"isAbility": false,
+			"name":"Power Press",
+			"cost":"FF",
+			"output":"70",
+			"modifier":"+",
+			"description":"If this Pokémon has at least 2 extra F Energy attached, this attack does 50 more damage."
+		}
+	],
+	"weakness": {
+		"energyType": "P",
+		"modifier": "+20"
+	},
+	"flavourText": "It quickly swings its four arms to rock its opponents with ceaseless punches and chops from all angles."
+}

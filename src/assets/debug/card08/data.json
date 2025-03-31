@@ -1,0 +1,36 @@
+{
+	"name": "giratina",
+	"illustrator": "PLANETA Yamashita",
+	"types": [
+		"basic",
+		"ex"
+	],
+	"resourceTypes": [
+		"P"
+	],
+	"rarity": "DR",
+	"resource1": "150",
+	"resource2": "CC",
+	"actions": [
+		{
+			"isAbility": true,
+			"name":"Broken-Space Bellow",
+			"cost":"",
+			"output":"",
+			"modifier":"",
+			"description":"Once during your turn, you may take a P Energy from your Energy Zone and attach it to this Pokémon. If you use this Ability, your turn ends."
+		},
+		{
+			"isAbility": false,
+			"name":"Chaotic Impact",
+			"cost":"PPPC",
+			"output":"130",
+			"modifier":"",
+			"description":"This Pokémon also does 20 damage to itself."
+		}
+	],
+	"weakness": {
+		"energyType": "D",
+		"modifier": "+20"
+	}
+}

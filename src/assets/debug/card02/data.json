@@ -1,0 +1,28 @@
+{
+	"name": "pachirisu",
+	"illustrator": "imoniii",
+	"types": [
+		"basic"
+	],
+	"resourceTypes": [
+		"L"
+	],
+	"rarity": "UC",
+	"resource1": "70",
+	"resource2": "C",
+	"actions": [
+		{
+			"isAbility": false,
+			"name":"Plasma",
+			"cost":"L",
+			"output":"10",
+			"modifier":"",
+			"description":"Take a L Energy from your Energy Zone and attach it to 1 of your Benched L Pokémon."
+		}
+	],
+	"weakness": {
+		"energyType": "F",
+		"modifier": "+20"
+	},
+	"flavourText": "It's one of the kinds of Pokémon with electric cheek pouches. It shoots charges from its tail."
+}
