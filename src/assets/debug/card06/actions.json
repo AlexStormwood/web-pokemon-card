@@ -1,10 +1,18 @@
 [
 	{
 		"isAbility": false,
-		"name":"Pop Out Throughout",
-		"cost":"WWW",
+		"name":"Stoke",
+		"cost":"R",
 		"output":"",
 		"modifier":"",
-		"description":"1 of your opponent's Pokémon is chosen at random 3 times. For each time a Pokémon was chosen, do 50 damage to it."
+		"description":"Take 3 R Energy from your Energy Zone and attach it to this Pokémon."
+	},
+	{
+		"isAbility": false,
+		"name":"Steam Artillery",
+		"cost":"RRRCC",
+		"output":"150",
+		"modifier":"",
+		"description":""
 	}
 ]

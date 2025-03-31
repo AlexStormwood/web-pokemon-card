@@ -24,7 +24,7 @@ export default function CardRenderer({cardScale, cardId}: {cardScale: string, ca
 	const [dimensions, setDimensions] = useState({
 		width: 0, height: 0
 	});
-
+	const [cardMaxRotation] = useState(30);
 
 
 	useEffect(() => {
@@ -75,8 +75,8 @@ export default function CardRenderer({cardScale, cardId}: {cardScale: string, ca
 		const baseY = event.clientY - bounds.top;
 		const middleX = dimensions.width / 2;
 		const middleY = dimensions.height / 2;
-		const offsetX = ((baseX - middleX) / middleX) * 45;
-		const offsetY = ((baseY - middleY) / middleY) * 45;
+		const offsetX = ((baseX - middleX) / middleX) * cardMaxRotation;
+		const offsetY = ((baseY - middleY) / middleY) * cardMaxRotation;
 
 		// console.log(baseX, baseY, middleX, middleY, offsetX, offsetY);
 
@@ -174,7 +174,8 @@ export default function CardRenderer({cardScale, cardId}: {cardScale: string, ca
 					marginLeft: `${(borderThickness / 2)}px`,
 					height: `${dimensions.height / 2.95}px`,
 					display: "flex",
-					justifyContent: "center",
+					gap:`${dimensions.height / 25}px`,
+					justifyContent: cardActions?.some((actionObj) => actionObj.isAbility) ? "start" : "center",
 					flexDirection: "column"
 				}}>
 					{cardActions?.map((actionObj, index) => {
@@ -187,6 +188,7 @@ export default function CardRenderer({cardScale, cardId}: {cardScale: string, ca
 							name={actionObj.name}
 							output={actionObj.output}
 							dimensions={dimensions}
+							extraOffset={cardActions.some((actionObj) => actionObj.cost.length >= 5) ? true : false}
 						/>
 					})}
 

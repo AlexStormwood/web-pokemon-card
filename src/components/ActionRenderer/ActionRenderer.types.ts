@@ -10,5 +10,6 @@ export type ActionRendererProps = {
 	dimensions: {
 		width: number,
 		height: number
-	}
+	},
+	extraOffset: boolean
 }
