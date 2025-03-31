@@ -1,0 +1,10 @@
+[
+	{
+		"isAbility": false,
+		"name":"Crushing Spear",
+		"cost":"GG",
+		"output":"80",
+		"modifier":"",
+		"description":"Discard a random Energy from your opponent's Active Pokémon."
+	}
+]

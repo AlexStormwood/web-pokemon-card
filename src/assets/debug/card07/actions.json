@@ -1,0 +1,18 @@
+[
+	{
+		"isAbility": true,
+		"name":"Retreat Directive",
+		"cost":"",
+		"output":"",
+		"modifier":"",
+		"description":"Your Active Dondozo has no Retreat Cost."
+	},
+	{
+		"isAbility": false,
+		"name":"Rain Splash",
+		"cost":"W",
+		"output":"20",
+		"modifier":"",
+		"description":""
+	}
+]

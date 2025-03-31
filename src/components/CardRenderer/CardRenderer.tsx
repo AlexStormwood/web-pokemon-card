@@ -1,3 +1,5 @@
+import ActionRenderer from "../ActionRenderer/ActionRenderer";
+import { ActionRendererProps } from "../ActionRenderer/ActionRenderer.types";
 import "./CardRenderer.css";
 
 
@@ -11,6 +13,7 @@ export default function CardRenderer({cardScale, cardId}: {cardScale: string, ca
 
 	let [cardArt, setCardArt] = useState<{ default: string }>();
 	let [cardDebug, setCardDebug] = useState<{ default: string }>();
+	let [cardActions, setCardActions] = useState<ActionRendererProps[]>();
 
 	let [borderThickness, setBorderThickness] = useState(1);
 	let [borderColourHex] = useState("#dedfdf");
@@ -35,6 +38,10 @@ export default function CardRenderer({cardScale, cardId}: {cardScale: string, ca
 
 			const targetCardDebug = await import(`../../assets/debug/${cardId}/card.png`);
 			setCardDebug(targetCardDebug);
+
+			const targetCardActions = await import(`../../assets/debug/${cardId}/actions.json`);
+			// console.log(targetCardActions.default);
+			setCardActions(targetCardActions.default);
 		}
 
 		importAssets();
@@ -145,7 +152,7 @@ export default function CardRenderer({cardScale, cardId}: {cardScale: string, ca
 					backgroundColor: "rgba(243, 245, 39, 0.43)",
 					width: `${dimensions.width - (borderThickness)}px`,
 					marginLeft: `${(borderThickness / 2)}px`,
-					height: `${dimensions.height / 2.39}px`,
+					height: `${dimensions.height / 2.4}px`,
 					display: "flex",
 					justifyContent: "center"
 				}}>
@@ -167,9 +174,21 @@ export default function CardRenderer({cardScale, cardId}: {cardScale: string, ca
 					marginLeft: `${(borderThickness / 2)}px`,
 					height: `${dimensions.height / 2.95}px`,
 					display: "flex",
-					justifyContent: "center"
+					justifyContent: "center",
+					flexDirection: "column"
 				}}>
-
+					{cardActions?.map((actionObj, index) => {
+						return <ActionRenderer 
+							key={actionObj.name + index}
+							isAbility={actionObj.isAbility} 
+							cost={actionObj.cost}
+							description={actionObj.description}
+							modifier={actionObj.modifier}
+							name={actionObj.name}
+							output={actionObj.output}
+							dimensions={dimensions}
+						/>
+					})}
 
 				</div>
 

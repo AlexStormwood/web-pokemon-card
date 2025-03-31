@@ -1,0 +1,10 @@
+[
+	{
+		"isAbility": false,
+		"name":"Plasma",
+		"cost":"L",
+		"output":"10",
+		"modifier":"",
+		"description":"Take a L Energy from your Energy Zone and attach it to 1 of your Benched L Pokémon."
+	}
+]

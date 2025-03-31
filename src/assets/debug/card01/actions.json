@@ -1,0 +1,10 @@
+[
+	{
+		"isAbility": false,
+		"name":"Headbutt",
+		"cost":"CC",
+		"output":"30",
+		"modifier":"",
+		"description":""
+	}
+]

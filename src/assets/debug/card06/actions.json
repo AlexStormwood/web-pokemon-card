@@ -1,0 +1,10 @@
+[
+	{
+		"isAbility": false,
+		"name":"Pop Out Throughout",
+		"cost":"WWW",
+		"output":"",
+		"modifier":"",
+		"description":"1 of your opponent's Pokémon is chosen at random 3 times. For each time a Pokémon was chosen, do 50 damage to it."
+	}
+]

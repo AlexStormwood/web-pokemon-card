@@ -1,0 +1,10 @@
+[
+	{
+		"isAbility": false,
+		"name":"Power Press",
+		"cost":"FF",
+		"output":"70",
+		"modifier":"plus",
+		"description":"If this Pokémon has at least 2 extra F Energy attached, this attack does 50 more damage."
+	}
+]
