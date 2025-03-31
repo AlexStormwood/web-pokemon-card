@@ -12,7 +12,7 @@ export default function CardRenderer({cardScale}: {cardScale: string}) {
 
 	let [borderThickness, setBorderThickness] = useState(1);
 	let [borderColourHex] = useState("#dedfdf");
-	let [cornerRoundness] = useState(1);
+	let [cornerRoundness, setCornerRoundness] = useState(1);
 
 
 	const refContainer = useRef<HTMLElement>(null);
@@ -35,6 +35,7 @@ export default function CardRenderer({cardScale}: {cardScale: string}) {
 			console.log(refContainer.current!.offsetWidth, refContainer.current!.offsetHeight)
 
 			setBorderThickness((refContainer.current!.offsetHeight / 100) * 6)
+			setCornerRoundness((refContainer.current!.offsetHeight / 1000) * 1.5);
 		});
 
 		resizeObserver.observe(refContainer.current);
@@ -205,7 +206,6 @@ export default function CardRenderer({cardScale}: {cardScale: string}) {
 				}}>
 				<img src={testingImage} style={{
 					zIndex: "-10",
-					opacity: "0.3",
 					position: "relative",
 					height: "100%"
 				}} />
