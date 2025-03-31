@@ -1,14 +1,17 @@
+import { DynamicImportType } from "../../utils/DynamicImportType";
 import "./CardRenderer.css";
 
-import testingImage from "../../assets/cPK_10_005040_00_BIPPA_C_M_en_US_UT.png";
-import testingArt from "../../assets/cPK_10_005040_00_BIPPA_C_L_ILL.png";
+
 import { useEffect, useRef, useState } from "react";
 
 export const themes = {
 	pocket: {},
 };
 
-export default function CardRenderer({cardScale}: {cardScale: string}) {
+export default function CardRenderer({cardScale, cardId}: {cardScale: string, cardId: string}) {
+
+	let [cardArt, setCardArt] = useState<DynamicImportType>();
+	let [cardDebug, setCardDebug] = useState<DynamicImportType>();
 
 	let [borderThickness, setBorderThickness] = useState(1);
 	let [borderColourHex] = useState("#dedfdf");
@@ -23,6 +26,20 @@ export default function CardRenderer({cardScale}: {cardScale: string}) {
 
 
 	useEffect(() => {
+
+		const importAssets = async () => {
+			// So, realistically, replace this function with something that
+			// fetches the image URLs from the server.
+			// It'd help remove the need for that DynamicImportType in the state declarations, too.
+			const targetCardArt = await import(`../../assets/debug/${cardId}/art.png`);
+			setCardArt(targetCardArt);
+
+			const targetCardDebug = await import(`../../assets/debug/${cardId}/card.png`);
+			setCardDebug(targetCardDebug);
+		}
+
+		importAssets();
+
 		if (!refContainer.current) return; 
 		
 		
@@ -32,7 +49,7 @@ export default function CardRenderer({cardScale}: {cardScale: string}) {
 				height: refContainer.current!.offsetHeight
 			});
 
-			console.log(refContainer.current!.offsetWidth, refContainer.current!.offsetHeight)
+			// console.log(refContainer.current!.offsetWidth, refContainer.current!.offsetHeight)
 
 			setBorderThickness((refContainer.current!.offsetHeight / 100) * 6)
 			setCornerRoundness((refContainer.current!.offsetHeight / 1000) * 1.5);
@@ -137,7 +154,7 @@ export default function CardRenderer({cardScale}: {cardScale: string}) {
 						marginTop: `${(borderThickness / 10)}px`,
 						
 					}}>
-						<img className="cardArtImage" src={testingArt} style={{
+						<img className="cardArtImage" src={cardArt?.default} style={{
 							width: `92%`,
 							aspectRatio: `1106/696`
 						}} />
@@ -204,7 +221,7 @@ export default function CardRenderer({cardScale}: {cardScale: string}) {
 			<div className="debugHelpers" style={{
 				height: `${dimensions.height}px`
 				}}>
-				<img src={testingImage} style={{
+				<img src={cardDebug?.default} style={{
 					zIndex: "-10",
 					position: "relative",
 					height: "100%"

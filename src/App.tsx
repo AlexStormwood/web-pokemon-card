@@ -15,9 +15,9 @@ function App() {
       <input type="range" name="cardScaleControl" id="cardScaleControl" max={100} min={0} value={cardScale} onChange={(event) => setCardScale(event.currentTarget.value)} />
       </div>
       <div className='cardRendererContainer'>
-        <CardRenderer cardScale={cardScale} />
-        <CardRenderer cardScale={cardScale} />
-        <CardRenderer cardScale={cardScale} />
+        {new Array(8).fill("").map((_,index) => {
+          return <CardRenderer key={"card0"+index} cardScale={cardScale} cardId={"card0" + (index+1).toString()} />
+        })}
       </div>
     </div>
   )
