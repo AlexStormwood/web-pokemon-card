@@ -1,4 +1,3 @@
-import { DynamicImportType } from "../../utils/DynamicImportType";
 import "./CardRenderer.css";
 
 
@@ -10,8 +9,8 @@ export const themes = {
 
 export default function CardRenderer({cardScale, cardId}: {cardScale: string, cardId: string}) {
 
-	let [cardArt, setCardArt] = useState<DynamicImportType>();
-	let [cardDebug, setCardDebug] = useState<DynamicImportType>();
+	let [cardArt, setCardArt] = useState<{ default: string }>();
+	let [cardDebug, setCardDebug] = useState<{ default: string }>();
 
 	let [borderThickness, setBorderThickness] = useState(1);
 	let [borderColourHex] = useState("#dedfdf");
