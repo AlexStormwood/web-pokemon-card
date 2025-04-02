@@ -48,6 +48,9 @@ Example:
 			"description":""
 		}
 	],
+	categories: [
+		"pikachu"
+	],
 	weakness: {
 		energyType: "F",
 		modifier: "x2"
@@ -78,6 +81,7 @@ Example:
 		}
 	],
 	categories: [
+		"raichu",
 		"alolan"
 	],
 	weakness: {
