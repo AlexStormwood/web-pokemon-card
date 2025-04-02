@@ -54,24 +54,27 @@ export default function CardRenderer({
 	useEffect(() => {
 		
 
-		if (!refContainer.current) return;
+		if (refContainer.current){
 
-		const resizeObserver = new ResizeObserver(() => {
-			setDimensions({
-				width: refContainer.current!.offsetWidth,
-				height: refContainer.current!.offsetHeight,
+			const resizeObserver = new ResizeObserver(() => {
+				setDimensions({
+					width: refContainer.current!.offsetWidth,
+					height: refContainer.current!.offsetHeight,
+				});
+	
+				// console.log(refContainer.current!.offsetWidth, refContainer.current!.offsetHeight)
+	
+				setBorderThickness((refContainer.current!.offsetHeight / 100) * 6);
+				setCornerRoundness(
+					(refContainer.current!.offsetHeight / 1000) * 1.5
+				);
 			});
+	
+			resizeObserver.observe(refContainer.current);
+			return () => resizeObserver.disconnect();
+		}
 
-			// console.log(refContainer.current!.offsetWidth, refContainer.current!.offsetHeight)
-
-			setBorderThickness((refContainer.current!.offsetHeight / 100) * 6);
-			setCornerRoundness(
-				(refContainer.current!.offsetHeight / 1000) * 1.5
-			);
-		});
-
-		resizeObserver.observe(refContainer.current);
-		return () => resizeObserver.disconnect();
+		
 	}, []);
 
 	let [x, setX] = useState("0");
