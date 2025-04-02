@@ -34,6 +34,7 @@ export default function CardRenderer({
 	const [cardMaxRotation, setCardMaxRotation] = useState(targetMaxRotation || 15);
 
 	const [_, setFoilType] = useState("none");
+	const borderRefContainer = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		if (targetDebugViewEnabled != undefined){
@@ -116,6 +117,20 @@ export default function CardRenderer({
 		cardRefContainer.current?.style.setProperty("--x", (event.clientX - cardRefBounds.x).toString());
 		cardRefContainer.current?.style.setProperty("--y", (event.clientY - cardRefBounds.y).toString());
 
+		// Scale the flashlight as the card size changes:
+		[...document.styleSheets[1].cssRules].find((rule) => {
+			if ((rule as CSSStyleRule).selectorText == ".shiny::after"){
+				let localRule = rule as CSSStyleRule;
+				localRule.style.width = `${dimensions.width}px`;
+				localRule.style.height = `${dimensions.width}px`;
+				localRule.style.top = (((event.clientY - cardRefBounds.y) * 1) - dimensions.width).toString();
+				localRule.style.left = (((event.clientX - cardRefBounds.x) * 1) - dimensions.width).toString();
+			} else {
+				return false;
+			}
+			
+		});
+		
 	};
 
 	const resetRotationAfterDelay = () => {
@@ -132,7 +147,7 @@ export default function CardRenderer({
 
 	return (
 		<section
-			className="cardRenderer shiny"
+			className="cardRenderer"
 			ref={cardRefContainer}
 			onMouseMove={reactToMouse}
 			onMouseOut={resetRotationAfterDelay}
@@ -351,17 +366,47 @@ export default function CardRenderer({
 					<div
 						className="cardArtFrame"
 						style={{
-							marginTop: `${borderThickness / 10}px`,
+							// marginTop: "4%",
+							width: "92%",
+							height: "92%",
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center"
 						}}
 					>
-						<img
-							className="cardArtImage"
-							src={cardData?.imageUrls![0]}
-							style={{
-								width: `92%`,
-								aspectRatio: `1106/696`,
-							}}
-						/>
+						<div className="artBox" style={{
+							width: "98%",
+							height: "98%",
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
+							position: "relative"
+						}}>
+							{cardData?.imageUrls?.map((imageUrl, index) =>  {
+								return <img
+								key={imageUrl + index}
+								id={imageUrl + index}
+								className="cardArtImage"
+								src={imageUrl}
+								style={{
+									height:`100%`,
+									position: "absolute" ,
+									zIndex: index + 1
+								}}
+							/>
+							})}
+							{cardData?.imageUrls?.some((imageUrl) => imageUrl.includes("-bg")) && <div
+								className="shiny"
+								style={{
+									height:`100%`,
+									width: `100%`,
+									position: "absolute" ,
+									zIndex: 10,
+									backgroundColor: "black",
+									mixBlendMode: "difference"
+								}}>
+							</div>}
+						</div>
 					</div>
 				</div>
 
@@ -423,6 +468,7 @@ export default function CardRenderer({
 
 				<div
 					className="cardBorder"
+					ref={borderRefContainer}
 					style={{
 						zIndex: "-1",
 						width: `${dimensions.width}px`,
@@ -443,18 +489,21 @@ export default function CardRenderer({
 							height: `100%`,
 						}}
 					>
-						<rect
-							style={
-								{
-									strokeWidth: `${borderThickness + "px"}`,
-									width: `${dimensions.width}px`,
-									height: `${dimensions.height}px`,
-									backgroundColor: "red",
-									fill: "none",
-									stroke: borderColourHex,
-								} as React.CSSProperties
-							}
-						/>
+						<mask id="borderMask">
+							<rect
+								style={
+									{
+										strokeWidth: `${borderThickness + "px"}`,
+										width: `${dimensions.width}px`,
+										height: `${dimensions.height}px`,
+										backgroundColor: "red",
+										fill: "none",
+										stroke: borderColourHex,
+									} as React.CSSProperties
+								}
+							/>
+						</mask>
+						
 					</svg>
 				</div>
 			</div>
@@ -468,13 +517,27 @@ export default function CardRenderer({
 				<img
 					src={cardDebugImage}
 					style={{
-						zIndex: "-10",
+						zIndex: "-1",
 						position: "relative",
 						height: "100%",
 					}}
 				/>
 			</div>
 			}
+			<div
+				className="borderHolofoils shiny"
+				style={{
+					height: `${dimensions.height}px`,
+					width: `${dimensions.width}px`,
+					position: "absolute",
+					backgroundColor: "rgba(0, 0, 0, 0.5)",
+					maskImage: "url(#borderMask)",
+					zIndex: 1,
+					borderRadius: `${cornerRoundness}rem`,
+				}}
+			>
+				
+			</div>
 		</section>
 	);
 }

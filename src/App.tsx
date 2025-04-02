@@ -13,9 +13,23 @@ function App() {
 			// So, realistically, replace this function with something that
 			// fetches the image URLs from the server.
 			// It'd help remove the need for that DynamicImportType in the state declarations, too.
-			const targetCardArt:{ default: string } = await import(
-				`./assets/debug/${cardId}/art.png`
-			);
+      let targetCardArts: string[] = [];
+			try {
+        const targetCardArtBg:{ default: string } = await import(
+          `./assets/debug/${cardId}/art-bg.png`
+        );
+        targetCardArts.push(targetCardArtBg.default);
+        const targetCardArtFg:{ default: string } = await import(
+          `./assets/debug/${cardId}/art-fg.png`
+        );
+        targetCardArts.push(targetCardArtFg.default);
+
+      } catch (error) {
+        const targetCardArt:{ default: string } = await import(
+          `./assets/debug/${cardId}/art.png`
+        );
+        targetCardArts.push(targetCardArt.default);
+      }
 
 			const targetCardDebugImage:{ default: string } = await import(
 				`./assets/debug/${cardId}/card.png`
@@ -25,9 +39,7 @@ function App() {
 				`./assets/debug/${cardId}/data.json`
 			);
       let cardDataLocal = JSON.parse(JSON.stringify(targetCardData.default));
-      cardDataLocal.imageUrls = [
-        targetCardArt.default
-      ];
+      cardDataLocal.imageUrls = [...targetCardArts];
 			
       let cardPropsToStore: CardRendererProps = {
         targetCardData: cardDataLocal,

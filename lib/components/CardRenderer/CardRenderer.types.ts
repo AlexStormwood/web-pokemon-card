@@ -21,7 +21,7 @@ export type CardData = {
 		modifier: string
 	},
 	flavourText?: string,
-	imageUrls?: string[],
+	imageUrls?: string[], // imageUrls[0] is background, higher numbers are closer to foreground, useful for masking characters in holofoils
 	ruleboxes?: string[],
 	borderFoils?: string[],
 	borderFoilMasks?: string[],
