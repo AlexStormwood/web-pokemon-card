@@ -33,7 +33,7 @@ export default function CardRenderer({
 	});
 	const [cardMaxRotation, setCardMaxRotation] = useState(targetMaxRotation || 15);
 
-	const [foilType, setFoilType] = useState("none");
+	const [_, setFoilType] = useState("none");
 
 	useEffect(() => {
 		if (targetDebugViewEnabled != undefined){
