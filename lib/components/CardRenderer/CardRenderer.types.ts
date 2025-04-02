@@ -21,8 +21,15 @@ export type CardData = {
 		modifier: string
 	},
 	flavourText?: string,
-	
+	imageUrls?: string[],
 	ruleboxes?: string[]
+}
+
+export type CardRendererProps = {
+	targetCardData: CardData;
+	targetCardScale?: string;
+	targetCardDebugImage?: string;
+	targetDebugViewEnabled?: boolean;
 }
 
 /*

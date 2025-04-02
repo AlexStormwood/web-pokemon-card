@@ -68,36 +68,3 @@ button:focus-visible {
 }
 
 
-
-@font-face {
-	font-family: "Cabin";
-	src: local("Cabin"), url("./assets/fonts/Cabin/cabin-variable.ttf") format("truetype-variations");
-}
-
-@font-face {
-	font-family: "PTSans";
-	src: local("PTSans"), url("./assets/fonts/PT_Sans/PTSans-Regular.ttf");
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: "PTSans";
-	src: local("PTSans"), url("./assets/fonts/PT_Sans/PTSans-Italic.ttf");
-	font-weight: normal;
-	font-style: italic;
-}
-
-@font-face {
-	font-family: "PTSans";
-	src: local("PTSans"), url("./assets/fonts/PT_Sans/PTSans-Bold.ttf");
-	font-weight: bold;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: "PTSans";
-	src: local("PTSans"), url("./assets/fonts/PT_Sans/PTSans-BoldItalic.ttf");
-	font-weight: bold;
-	font-style: italic;
-}

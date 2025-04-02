@@ -3,27 +3,21 @@ import "./CardRenderer.css";
 
 
 import { useEffect, useRef, useState } from "react";
-import { CardData } from "./CardRenderer.types";
+import { CardData, CardRendererProps } from "./CardRenderer.types";
 import { capitalizeFirstLetter } from "../../utils/capitaliseFirstletter";
 
-export const themes = {
-	pocket: {},
-};
+
 
 export default function CardRenderer({
-	cardScale,
-	cardId,
-	debugViewEnabled
-}: {
-	cardScale: string;
-	cardId: string;
-	debugViewEnabled: boolean;
-}) {
+	targetCardData,
+	targetCardScale,
+	targetCardDebugImage,
+	targetDebugViewEnabled	
+}: CardRendererProps) {
 
 	let [debugView, setDebugView] = useState(true);
-
-	let [cardArt, setCardArt] = useState<{ default: string }>();
-	let [cardDebug, setCardDebug] = useState<{ default: string }>();
+	let [cardScale, setCardScale] = useState(targetCardScale || "20");
+	let [cardDebugImage, setCardDebugImage] = useState<string>();
 	let [cardData, setCardData] = useState<CardData>();
 
 	let [borderThickness, setBorderThickness] = useState(1);
@@ -38,33 +32,27 @@ export default function CardRenderer({
 	const [cardMaxRotation] = useState(30);
 
 	useEffect(() => {
-		setDebugView(debugViewEnabled);
-	}, [debugViewEnabled]);
-
+		if (targetDebugViewEnabled != undefined){
+			setDebugView(targetDebugViewEnabled);
+		}
+	}, [targetDebugViewEnabled]);
 
 	useEffect(() => {
-		const importAssets = async () => {
-			// So, realistically, replace this function with something that
-			// fetches the image URLs from the server.
-			// It'd help remove the need for that DynamicImportType in the state declarations, too.
-			const targetCardArt = await import(
-				`../../assets/debug/${cardId}/art.png`
-			);
-			setCardArt(targetCardArt);
+		setCardData(targetCardData);
+	}, [targetCardData]);
 
-			const targetCardDebug = await import(
-				`../../assets/debug/${cardId}/card.png`
-			);
-			setCardDebug(targetCardDebug);
+	useEffect(() => {
+		setCardDebugImage(targetCardDebugImage);
+	}, [targetCardDebugImage]);
 
-			const targetCardData = await import(
-				`../../assets/debug/${cardId}/data.json`
-			);
-			// console.log(targetCardData.default);
-			setCardData(targetCardData.default);
-		};
+	useEffect(() => {
+		if (targetCardScale){
+			setCardScale(targetCardScale);
+		}
+	}, [targetCardScale]);
 
-		importAssets();
+	useEffect(() => {
+		
 
 		if (!refContainer.current) return;
 
@@ -127,9 +115,19 @@ export default function CardRenderer({
 					"--active-card-rotateY": y,
 					"--active-card-rotateX": x,
 					height: `${cardScale}dvh`,
+					color: "#221814",
+					position: "relative",
+					transformStyle: "preserve-3d",
+					transition: "0.5s",
+					transform: "perspective(1000px) rotateY(var(--active-card-rotateY)) rotateX(var(--active-card-rotateX))",
+					overflow: "hidden",
+					aspectRatio: "750/1050",
+					fontFamily: "Gill Sans, Gill Sans MT",
+					fontWeight: "bold"
 				} as React.CSSProperties
 			}
 		>
+			
 			<div
 				className="cardContent"
 				style={{
@@ -332,7 +330,7 @@ export default function CardRenderer({
 					>
 						<img
 							className="cardArtImage"
-							src={cardArt?.default}
+							src={cardData?.imageUrls![0]}
 							style={{
 								width: `92%`,
 								aspectRatio: `1106/696`,
@@ -407,6 +405,7 @@ export default function CardRenderer({
 						display: "flex",
 						justifyContent: "center",
 						alignItems: "center",
+						position: "absolute"
 					}}
 				>
 					<svg
@@ -433,14 +432,15 @@ export default function CardRenderer({
 					</svg>
 				</div>
 			</div>
-			{debugView && <div
+			{(debugView && cardDebugImage) && <div
 				className="debugHelpers"
 				style={{
 					height: `${dimensions.height}px`,
+					position: "absolute"
 				}}
 			>
 				<img
-					src={cardDebug?.default}
+					src={cardDebugImage}
 					style={{
 						zIndex: "-10",
 						position: "relative",
