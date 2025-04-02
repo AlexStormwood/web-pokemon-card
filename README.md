@@ -1,6 +1,10 @@
 # Web Pokemon Card
 
-Just a sandbox repo so I can try and build this one thing in particular, in isolation from a larger project.
+Just a sandbox repo so I can try and build this one thing in particular, in isolation from a larger project. 
+
+Not meant for actual usage in any particular project.
+
+There'll be a nice, professional, proper package similar to this coming from the [BigfootDS](https://github.com/BigfootDS) account soon.
 
 ## Demo
 
