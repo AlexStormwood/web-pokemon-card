@@ -12,7 +12,9 @@ export default function CardRenderer({
 	targetCardData,
 	targetCardScale,
 	targetCardDebugImage,
-	targetDebugViewEnabled	
+	targetDebugViewEnabled,
+	targetMaxRotation,
+	targetFoilType
 }: CardRendererProps) {
 
 	let [debugView, setDebugView] = useState(true);
@@ -24,12 +26,14 @@ export default function CardRenderer({
 	let [borderColourHex] = useState("#dedfdf");
 	let [cornerRoundness, setCornerRoundness] = useState(1);
 
-	const refContainer = useRef<HTMLElement>(null);
+	const cardRefContainer = useRef<HTMLElement>(null);
 	const [dimensions, setDimensions] = useState({
 		width: 0,
 		height: 0,
 	});
-	const [cardMaxRotation] = useState(30);
+	const [cardMaxRotation, setCardMaxRotation] = useState(targetMaxRotation || 15);
+
+	const [foilType, setFoilType] = useState("none");
 
 	useEffect(() => {
 		if (targetDebugViewEnabled != undefined){
@@ -40,6 +44,18 @@ export default function CardRenderer({
 	useEffect(() => {
 		setCardData(targetCardData);
 	}, [targetCardData]);
+
+	useEffect(() => {
+		if (targetMaxRotation){
+			setCardMaxRotation(targetMaxRotation);
+		}
+	}, [targetMaxRotation]);
+
+	useEffect(() => {
+		if (targetFoilType){
+			setFoilType(targetFoilType);
+		}
+	}, [targetFoilType]);
 
 	useEffect(() => {
 		setCardDebugImage(targetCardDebugImage);
@@ -54,33 +70,34 @@ export default function CardRenderer({
 	useEffect(() => {
 		
 
-		if (refContainer.current){
+		if (cardRefContainer.current){
 
 			const resizeObserver = new ResizeObserver(() => {
 				setDimensions({
-					width: refContainer.current!.offsetWidth,
-					height: refContainer.current!.offsetHeight,
+					width: cardRefContainer.current!.offsetWidth,
+					height: cardRefContainer.current!.offsetHeight,
 				});
 	
-				// console.log(refContainer.current!.offsetWidth, refContainer.current!.offsetHeight)
+				// console.log(cardRefContainer.current!.offsetWidth, cardRefContainer.current!.offsetHeight)
 	
-				setBorderThickness((refContainer.current!.offsetHeight / 100) * 6);
+				setBorderThickness((cardRefContainer.current!.offsetHeight / 100) * 6);
 				setCornerRoundness(
-					(refContainer.current!.offsetHeight / 1000) * 1.5
+					(cardRefContainer.current!.offsetHeight / 1000) * 1.5
 				);
 			});
 	
-			resizeObserver.observe(refContainer.current);
+			resizeObserver.observe(cardRefContainer.current);
 			return () => resizeObserver.disconnect();
 		}
 
 		
 	}, []);
 
-	let [x, setX] = useState("0");
-	let [y, setY] = useState("0");
+	let [xRot, setXRot] = useState("0");
+	let [yRot, setYRot] = useState("0");
 
-	const rotateToMouse = (event: React.MouseEvent) => {
+	const reactToMouse = (event: React.MouseEvent) => {
+		// Stuff for card rotation:
 		let bounds = event.currentTarget.getBoundingClientRect();
 		const baseX = event.clientX - bounds.left;
 		const baseY = event.clientY - bounds.top;
@@ -88,17 +105,23 @@ export default function CardRenderer({
 		const middleY = dimensions.height / 2;
 		const offsetX = ((baseX - middleX) / middleX) * cardMaxRotation;
 		const offsetY = ((baseY - middleY) / middleY) * cardMaxRotation;
+		setXRot(-1 * offsetY + "deg");
+		setYRot(offsetX + "deg");
 
-		// console.log(baseX, baseY, middleX, middleY, offsetX, offsetY);
+		// Stuff for mouse flashlight:
+		let cardRefBounds = cardRefContainer.current?.getBoundingClientRect();
+		if (cardRefBounds == undefined){
+			return;
+		}
+		cardRefContainer.current?.style.setProperty("--x", (event.clientX - cardRefBounds.x).toString());
+		cardRefContainer.current?.style.setProperty("--y", (event.clientY - cardRefBounds.y).toString());
 
-		setX(-1 * offsetY + "deg");
-		setY(offsetX + "deg");
 	};
 
 	const resetRotationAfterDelay = () => {
 		setTimeout(() => {
-			setX("0deg");
-			setY("0deg");
+			setXRot("0deg");
+			setYRot("0deg");
 		}, 1000);
 	};
 
@@ -109,14 +132,14 @@ export default function CardRenderer({
 
 	return (
 		<section
-			className="cardRenderer"
-			ref={refContainer}
-			onMouseMove={rotateToMouse}
+			className="cardRenderer shiny"
+			ref={cardRefContainer}
+			onMouseMove={reactToMouse}
 			onMouseOut={resetRotationAfterDelay}
 			style={
 				{
-					"--active-card-rotateY": y,
-					"--active-card-rotateX": x,
+					"--active-card-rotateY": yRot,
+					"--active-card-rotateX": xRot,
 					height: `${cardScale}dvh`,
 					color: "#221814",
 					position: "relative",

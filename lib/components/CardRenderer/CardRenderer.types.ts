@@ -22,7 +22,13 @@ export type CardData = {
 	},
 	flavourText?: string,
 	imageUrls?: string[],
-	ruleboxes?: string[]
+	ruleboxes?: string[],
+	borderFoils?: string[],
+	borderFoilMasks?: string[],
+	artFoils?: string[],
+	artFoilMasks?: string[],
+	backgroundFoils?: string[]
+	backgroundFoilMasks?: string[]
 }
 
 export type CardRendererProps = {
@@ -30,6 +36,8 @@ export type CardRendererProps = {
 	targetCardScale?: string;
 	targetCardDebugImage?: string;
 	targetDebugViewEnabled?: boolean;
+	targetMaxRotation?: number;
+	targetFoilType?: string;
 }
 
 /*
