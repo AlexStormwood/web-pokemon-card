@@ -16,11 +16,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b ./tsconfig.lib.json && vite build",
+    "build:lib": "tsc -b ./tsconfig.lib.json && vite build --config ./vite.lib.config.ts",
+    "build:demo": "tsc -b ./tsconfig.app.json && vite build --config ./vite.app.config.ts",
     "lint": "eslint .",
-    "preview": "vite preview",
+    "preview": "vite preview --outDir demo",
     "clean": "rm -rf dist",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build:lib"
   },
   "peerDependencies": {
     "react": "^19.1.0",

@@ -17,6 +17,7 @@ export default defineConfig({
 		}),
 	],
 	build: {
+		outDir: "./dist",
 		copyPublicDir: false,
 		lib: {
 			entry: resolve(__dirname, "lib/index.ts"),
