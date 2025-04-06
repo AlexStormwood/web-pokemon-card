@@ -10,6 +10,7 @@ export type CardData = {
 	resource1: string, // HP in PTCG, Toughness in MTG
 	resource2: string, // Retreat Cost in PTCG, Power in MTG
 	resource3: string, // unused for now
+	id?: string, // id of card in database
 	categories?: string[],
 	evolvesFrom?: string,
 	weakness?: {
@@ -23,12 +24,17 @@ export type CardData = {
 	flavourText?: string,
 	imageUrls?: string[], // imageUrls[0] is background, higher numbers are closer to foreground, useful for masking characters in holofoils
 	ruleboxes?: string[],
+	overlayFoil?: boolean,
+	borderFoil?: boolean,
+	artFoil?: boolean,
+	backgroundFoil?: boolean,
 	borderFoils?: string[],
 	borderFoilMasks?: string[],
 	artFoils?: string[],
 	artFoilMasks?: string[],
 	backgroundFoils?: string[]
-	backgroundFoilMasks?: string[]
+	backgroundFoilMasks?: string[],
+	backgroundTextureOverride?: string
 }
 
 export type CardRendererProps = {

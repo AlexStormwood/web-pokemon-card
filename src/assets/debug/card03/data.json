@@ -24,5 +24,7 @@
 		"energyType": "P",
 		"modifier": "+20"
 	},
-	"flavourText": "It quickly swings its four arms to rock its opponents with ceaseless punches and chops from all angles."
+	"flavourText": "It quickly swings its four arms to rock its opponents with ceaseless punches and chops from all angles.",
+	"artFoil": true,
+	"borderFoil": true
 }

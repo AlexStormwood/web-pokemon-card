@@ -32,5 +32,6 @@
 	"weakness": {
 		"energyType": "W",
 		"modifier": "+20"
-	}
+	},
+	"overlayFoil": true
 }

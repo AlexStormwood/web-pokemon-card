@@ -24,5 +24,6 @@
 	"weakness": {
 		"energyType": "R",
 		"modifier": "+20"
-	}
+	},
+	"overlayFoil": true
 }

@@ -24,5 +24,6 @@
 		"energyType": "F",
 		"modifier": "+20"
 	},
-	"flavourText": "It's one of the kinds of Pokémon with electric cheek pouches. It shoots charges from its tail."
+	"flavourText": "It's one of the kinds of Pokémon with electric cheek pouches. It shoots charges from its tail.",
+	"backgroundFoil": true
 }
